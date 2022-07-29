@@ -6,33 +6,89 @@
 </head>
 
 <body>
+    <div class="app">
+        <div class="header">
+            <div id="header">
+                <form id="searchForm">
+                    <input id="searchQuery" type="text" name="query" size="30" />
+                    <input id="searchButton" type="submit" value="検索" />
+                    <input id="searchStart" type="hidden" name="start" value="0" />
+                    <input id="searchNum" type="hidden" name="num" value="20" />
+                </form>
+                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" id="file" name="file[]" class="form-control" multiple>
+                    <button type="submit">アップロード</button>
+                </form>
+            </div>
+        </div>
 
-    <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
-        @csrf
-
-        <input type="file" id="file" name="file[]" class="form-control" multiple>
-        <button type="submit">アップロード</button>
-    </form>
-
-    <div id="header">
-        <form id="searchForm">
-            <input id="searchQuery" type="text" name="query" size="30" />
-            <input id="searchButton" type="submit" value="検索" />
-            <input id="searchStart" type="hidden" name="start" value="0" />
-            <input id="searchNum" type="hidden" name="num" value="20" />
-        </form>
+        <div class="main">
+            <div class="sidebar">左サイドバー</div>
+            <div class="content">
+                <div class="flex-content">
+                    <div id="subheader"></div>
+                    <div id="result"></div>
+                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                    <script type="text/javascript" src="fess.js"></script>
+                </div>
+            </div>
+            <div class="sidebar">右サイドバー</div>
+        </div>
     </div>
-    <div id="subheader"></div>
-    <div id="result"></div>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="fess.js"></script>
-
-
-
-
 </body>
-
 </html>
+
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 10%;
+  background-color: lightcyan;
+  box-sizing: border-box;
+  border: 8px solid blue;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.sidebar {
+  width: 15%;
+  background-color: moccasin;
+  box-sizing: border-box;
+  border: 8px solid chocolate;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-content {
+  flex-grow: 1;
+  background-color: palegoldenrod;
+  box-sizing: border-box;
+  border: 8px solid green;
+  width: 100%;
+}
+
+</style>
 
 
 <script>
