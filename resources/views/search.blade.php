@@ -6,6 +6,14 @@
 </head>
 
 <body>
+
+    <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
+        @csrf
+
+        <input type="file" id="file" name="file[]" class="form-control" multiple>
+        <button type="submit">アップロード</button>
+    </form>
+
     <div id="header">
         <form id="searchForm">
             <input id="searchQuery" type="text" name="query" size="30" />
@@ -18,6 +26,10 @@
     <div id="result"></div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="fess.js"></script>
+
+
+
+
 </body>
 
 </html>
