@@ -8,86 +8,175 @@
 <body>
     <div class="app">
         <div class="header">
-            <div id="header">
-                <form id="searchForm">
-                    <input id="searchQuery" type="text" name="query" size="30" />
-                    <input id="searchButton" type="submit" value="検索" />
+            <div class="left-class">QumuのPDF検索</div>
+            <div class="search-class">
+                <form id="searchForm" class="search-inputs">
+                    <input id="searchQuery" class="search-text" type="text" name="query" />
+                    <div class="sukima"></div>
+                    <input id="searchButton" type="submit" value="検索" class="button" />
                     <input id="searchStart" type="hidden" name="start" value="0" />
                     <input id="searchNum" type="hidden" name="num" value="20" />
                 </form>
+            </div>
+            <div class="middle-class"></div>
+            <div class="upload-class">
                 <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="file" id="file" name="file[]" class="form-control" multiple>
-                    <button type="submit">アップロード</button>
+                    <button type="submit" class="button">アップロード</button>
                 </form>
             </div>
         </div>
 
         <div class="main">
-            <div class="sidebar">左サイドバー</div>
+            <div class="left-sidebar"></div>
             <div class="content">
                 <div class="flex-content">
                     <div id="subheader"></div>
                     <div id="result"></div>
-                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-                    <script type="text/javascript" src="fess.js"></script>
+                    <div class="search-contents">
+                        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                    </div>
+                    <div class="search-contents">
+                        <script type="text/javascript" src="fess.js"></script>
+                    </div>
                 </div>
             </div>
-            <div class="sidebar">右サイドバー</div>
+            <div class="right-sidebar"></div>
         </div>
     </div>
 </body>
+
+<footer>
+    <div class="footer"></div>
+</footer>
+
 </html>
 
 <style>
+    #searchButton {
+        width: 7%;
+    }
+
+    .button {
+        position: relative;
+        background-color: dodgerblue;
+        border-radius: 4px;
+        color: #fff;
+        line-height: 52px;
+        -webkit-transition: none;
+        transition: none;
+    }
+
+    .button:hover {
+        background-color: blue;
+    }
+
+    .button:active {
+        top: 3px;
+        box-shadow: none;
+    }
+
     * {
-  margin: 0;
-  padding: 0;
-}
+        margin: 0;
+        padding: 0;
+    }
 
-.app {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
+    .app {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
-.header {
-  height: 10%;
-  background-color: lightcyan;
-  box-sizing: border-box;
-  border: 8px solid blue;
-}
+    .header {
+        display: flex;
+        height: 10%;
+        width: 100%;
+        background-color: lightcyan;
+        box-sizing: border-box;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 2px solid #333;
+    }
 
-.main {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-}
+    .left-class {
+        width: 15%;
+    }
 
-.sidebar {
-  width: 15%;
-  background-color: moccasin;
-  box-sizing: border-box;
-  border: 8px solid chocolate;
-}
+    .search-class {
+        width: 50%;
+        background-color: #f2f2f2;
+    }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: center;
-}
+    .middle-class {
+        width: 15%;
+    }
 
-.flex-content {
-  flex-grow: 1;
-  background-color: palegoldenrod;
-  box-sizing: border-box;
-  border: 8px solid green;
-  width: 100%;
-}
+    .upload-class {
+        width: 20%;
+    }
 
+    .search-text {
+        display: inline-block;
+        width: 90%;
+        padding: 0.5em;
+        border: 1px solid #999;
+        box-sizing: border-box;
+        background: #f2f2f2;
+        margin: 0.5em 0;
+    }
+
+    .sukima {
+        width: 1%;
+    }
+
+    .search-inputs {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        height: 90%;
+    }
+
+    .left-sidebar {
+        width: 20%;
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    .right-sidebar {
+        width: 60%;
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .flex-content {
+        flex-grow: 1;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+    }
+
+    .search-contents .subheader .result {
+        width: 100%;
+        height: 100%;
+    }
 </style>
 
 
@@ -168,10 +257,10 @@
                             max;
                         offset = startRange - 1;
                         // (13) サブヘッダーに出力
-                        buf.push("<b>", dataResponse.q, "</b> の検索結果 ",
+                        buf.push("<br><b>", dataResponse.q, "</b> の検索結果 ",
                             record_count, " 件中 ", startRange, " - ",
                             endRange, " 件目 (", dataResponse.exec_time,
-                            " 秒)");
+                            " 秒)", "<br><br><br>");
                         $subheader[0].innerHTML = buf.join("");
 
                         // 検索結果領域のクリア
@@ -182,10 +271,10 @@
                         var results = dataResponse.result;
                         for (i = 0, max = results.length; i < max; i++) {
                             buf = [];
-                            buf.push('<li><h3 class="title">', '<a href="',
-                                results[i].url_link, '">', results[i].title,
+                            buf.push('<h3 class="title">', '<a href="',
+                                results[i].url_link, '" target="_blank">', results[i].title,
                                 '</a></h3><div class="body">', results[i].content_description,
-                                '<br/><cite>', results[i].site, '</cite></div></li>');
+                                '<br/><cite>', '</cite></div><br><br>');
                             $(buf.join("")).appendTo($resultBody);
                         }
                         $resultBody.appendTo($result);
@@ -199,7 +288,7 @@
                         }
                         if (dataResponse.next_page) {
                             // 次のページへのリンク
-                            buf.push('<a id="nextPageLink" href="#">次ページへ&gt;&gt;</a>');
+                            buf.push('<a id="nextPageLink" href="#">次ページへ&gt;&gt;</a><br><br><br>');
                         }
                         buf.push('</div>');
                         $(buf.join("")).appendTo($result);
