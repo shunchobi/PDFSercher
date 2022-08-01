@@ -183,7 +183,7 @@
 <script>
     $(function() {
         // (1) Fess の URL
-        var baseUrl = "http://192.168.1.122:8080/json/?q=";
+        var baseUrl = "http://devuser.local:8080/json/?q=";
         // (2) 検索ボタンのjQueryオブジェクト
         var $searchButton = $('#searchButton');
 
